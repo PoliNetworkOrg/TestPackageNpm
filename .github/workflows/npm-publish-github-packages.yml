@@ -30,12 +30,12 @@ jobs:
           echo "Upload release artifacts to ${{ steps.release.outputs.upload_url }}"
 
       - name: yarn yarn
-      - run: yarn
+        run: yarn
 
       - name: yarn version
         run: yarn version ${{ steps.release.outputs.version }}
 
       - name: yarn publish
-      - run: yarn publish
+        run: yarn publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
