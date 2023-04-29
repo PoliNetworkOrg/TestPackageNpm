@@ -1,0 +1,51 @@
+name: Publish Package to npmjs
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "16.x"
+          registry-url: "https://npm.pkg.github.com"
+          # Defaults to the user or organization that owns the workflow file
+          scope: "@polinetworkorg"
+
+      - id: release
+        uses: rymndhng/release-on-push-action@master
+        with:
+          bump_version_scheme: patch
+          tag_prefix: v
+
+      - name: Check Output Parameters
+        run: |
+          echo "Got tag name ${{ steps.release.outputs.tag_name }}"
+          echo "Got release version ${{ steps.release.outputs.version }}"
+          echo "Upload release artifacts to ${{ steps.release.outputs.upload_url }}"
+
+      - name: yarn yarn
+        run: yarn
+
+      - name: git config
+        run: |
+          git config --global user.email "polinetwork@outlook.com"
+          git config --global user.name "PoliNetwork"
+
+      - name: yarn set prefix version
+        run: yarn config set version-tag-prefix "v"
+
+      - name: yarn version
+        run: yarn version --new-version ${{ steps.release.outputs.version }}
+
+      - name: yarn publish
+        run: yarn publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
