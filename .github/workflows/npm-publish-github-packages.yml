@@ -9,6 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    outputs:
+      output1: ${{ steps.release.outputs.version }}
     steps:
       - uses: actions/checkout@v3
 
@@ -68,7 +70,7 @@ jobs:
 
       - run: yarn
       - run: yarn config set version-tag-prefix "v"
-      - run: yarn version --new-version ${{ needs.build.release.outputs.version }}
+      - run: yarn version --new-version ${{ needs.build.outputs.output1 }}
       - run: yarn publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -91,7 +93,7 @@ jobs:
 
       - run: yarn
       - run: yarn config set version-tag-prefix "v"
-      - run: yarn version --new-version ${{ needs.build.release.outputs.version }}
+      - run: yarn version --new-version ${{ needs.build.outputs.output1 }}
       - run: yarn publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
