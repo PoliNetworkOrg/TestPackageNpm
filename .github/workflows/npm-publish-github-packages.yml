@@ -34,6 +34,9 @@ jobs:
       - name: yarn yarn
         run: yarn
 
+      - name: yarn set prefix version
+        run: yarn config set version-tag-prefix "v"
+
       - name: yarn version
         run: yarn version --new-version ${{ steps.release.outputs.version }}
 
