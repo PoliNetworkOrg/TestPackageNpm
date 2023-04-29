@@ -45,6 +45,12 @@ jobs:
       - name: yarn version
         run: yarn version --new-version ${{ steps.release.outputs.version }}
 
+      - name: git add commit push
+        run: |
+          git add .
+          git commit -m 'bump version to ${{ steps.release.outputs.version }}'
+          git push
+
       - name: yarn publish
         run: yarn publish
         env:
