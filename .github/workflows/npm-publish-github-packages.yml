@@ -7,19 +7,15 @@ on:
 jobs:
   release-on-push:
     runs-on: ubuntu-latest
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
-      - name: Git pull
-        run: git pull
-
-      - name: Setup Node.js environment
-        uses: actions/setup-node@v1
+      - uses: actions/setup-node@v3
         with:
-          node-version: "18.x"
+          node-version: "16.x"
+          registry-url: "https://npm.pkg.github.com"
+          # Defaults to the user or organization that owns the workflow file
+          scope: "@polinetworkorg"
 
       - id: release
         uses: rymndhng/release-on-push-action@master
@@ -33,20 +29,14 @@ jobs:
           echo "Got release version ${{ steps.release.outputs.version }}"
           echo "Upload release artifacts to ${{ steps.release.outputs.upload_url }}"
 
-      - name: yarn
+      - name: yarn yarn
       - run: yarn
       
       - name: yarn version
         run: yarn version ${{ steps.release.outputs.version }}
 
-      # Setup .npmrc file to publish to npm
-      - uses: actions/setup-node@v3
-        with:
-          node-version: "18.x"
-          registry-url: "https://npm.pkg.github.com"
-          # Defaults to the user or organization that owns the workflow file
-          scope: "@polinetworkorg"
-      - run: yarn
+
+      - name: yarn publish
       - run: yarn publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
