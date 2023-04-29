@@ -68,7 +68,7 @@ jobs:
 
       - run: yarn
       - run: yarn config set version-tag-prefix "v"
-      - run: yarn version --new-version ${{ steps.release.outputs.version }}
+      - run: yarn version --new-version ${{ needs.build.release.outputs.version }}
       - run: yarn publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -90,6 +90,8 @@ jobs:
           scope: "@polinetworkorg"
 
       - run: yarn
+      - run: yarn config set version-tag-prefix "v"
+      - run: yarn version --new-version ${{ needs.build.release.outputs.version }}
       - run: yarn publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
