@@ -50,31 +50,7 @@ jobs:
           (git commit -m 'bump version to ${{ steps.release.outputs.version }}') || true
           (git push) || true
 
-  publish-npm:
-    name: Publish on NPM
-    runs-on: ubuntu-22.04
-    needs: build
 
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Set up Node.js for NPM
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-          cache: npm
-          registry-url: "https://registry.npmjs.org"
-
-      - name: git config
-        run: |
-          git config --global user.email "polinetwork@outlook.com"
-          git config --global user.name "PoliNetwork"
-
-      - run: yarn
-      - run: yarn version --new-version ${{ needs.build.outputs.output1 }}
-      - run: yarn publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   publish-gpr:
     name: Publish on GPR
