@@ -35,7 +35,7 @@ jobs:
         run: yarn
 
       - name: yarn version
-        run: yarn version ${{ steps.release.outputs.version }}
+        run: yarn version --new-version ${{ steps.release.outputs.version }}
 
       - name: yarn publish
         run: yarn publish
