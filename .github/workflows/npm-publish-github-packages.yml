@@ -67,6 +67,8 @@ jobs:
           registry-url: "https://registry.npmjs.org"
 
       - run: yarn
+      - run: yarn config set version-tag-prefix "v"
+      - run: yarn version --new-version ${{ steps.release.outputs.version }}
       - run: yarn publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
