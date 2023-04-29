@@ -27,6 +27,7 @@ jobs:
           node-version: 16
           registry-url: https://registry.npmjs.org/
           
+      - id: yarnpublish
       - name: yarn publish
       - run: yarn publish
         env:
