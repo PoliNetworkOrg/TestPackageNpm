@@ -47,9 +47,9 @@ jobs:
 
       - name: git add commit push
         run: |
-          git add .
-          git commit -m 'bump version to ${{ steps.release.outputs.version }}'
-          git push
+          (git add .) || true
+          (git commit -m 'bump version to ${{ steps.release.outputs.version }}') || true
+          (git push) || true
 
       - name: yarn publish
         run: yarn publish
