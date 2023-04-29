@@ -29,9 +29,7 @@ jobs:
         with:
           node-version: 16
           registry-url: https://registry.npmjs.org/
-          
-      - name: yarn version
-        run: yarn version ${{ steps.release.outputs.version }}
+
 
       - name: yarn publish
       - run: yarn publish
