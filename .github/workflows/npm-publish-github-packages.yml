@@ -1,4 +1,4 @@
-name: Release and publish npm on push to main
+
 on:
   push:
     branches:
@@ -33,8 +33,10 @@ jobs:
           echo "Got release version ${{ steps.release.outputs.version }}"
           echo "Upload release artifacts to ${{ steps.release.outputs.upload_url }}"
 
-      - name: yarn version
+      - name: yarn
       - run: yarn
+      
+      - name: yarn version
         run: yarn version ${{ steps.release.outputs.version }}
 
       # Setup .npmrc file to publish to npm
