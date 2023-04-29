@@ -1,4 +1,4 @@
-name: Release and publish npm on push to main
+
 on:
   push:
     branches:
