@@ -3,7 +3,7 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
-  "version": "v0.0.21",
+  "version": "v0.0.22",
   "description": "TestPackageNpm",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
