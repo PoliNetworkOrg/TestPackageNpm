@@ -1,5 +1,8 @@
 {
-  "name": "TestPackageNpm",
+  "name": "@PoliNetworkOrg/TestPackageNpm",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "version": "0.0.1",
   "description": "TestPackageNpm",
   "main": "dist/index.js",
