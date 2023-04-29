@@ -1,5 +1,5 @@
 {
-  "name": "@PoliNetworkOrg/TestPackageNpm",
+  "name": "@polinetworkorg/testpackagenpm",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
